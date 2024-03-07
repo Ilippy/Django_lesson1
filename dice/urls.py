@@ -3,6 +3,6 @@ from . import views
 
 urlpatterns = [
     path('dice/', views.dice),
-    path('coin', views.coin),
-    path('hundred', views.hundred),
+    path('coin/<int:amount_flips>', views.coin),
+    path('hundred/', views.hundred),
 ]
