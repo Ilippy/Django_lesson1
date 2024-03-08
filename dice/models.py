@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 
+
 # Create your models here.
 
 class CoinFlip(models.Model):
@@ -14,4 +15,4 @@ class CoinFlip(models.Model):
         return result[:n]
 
     def __str__(self):
-        return f"Сторона: {self.side}<br> Дата{self.datetime.strftime('%d-%m-%Y, %H:%M:%S')} {type(self.datetime)}"
+        return f"Сторона: {self.side}<br> Дата: {self.datetime.strftime('%d-%m-%Y, %H:%M:%S')}"
