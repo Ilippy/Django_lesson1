@@ -1,13 +1,14 @@
 from django.db import models
 from django.utils import timezone
 
+
 # Create your models here.
 class Author(models.Model):
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
     email = models.EmailField()
     biography = models.TextField()
-    data_of_birth = models.DateTimeField(default=timezone.now())
+    data_of_birth = models.DateTimeField(auto_now_add=True)
 
     @property
     def full_name(self):

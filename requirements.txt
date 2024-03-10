@@ -1,0 +1,8 @@
+asgiref==3.7.2
+Django==5.0.3
+django-extensions==3.2.3
+Faker==24.1.0
+python-dateutil==2.9.0.post0
+six==1.16.0
+sqlparse==0.4.4
+tzdata==2024.1
