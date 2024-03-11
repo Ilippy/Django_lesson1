@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title%} {{ title }} {% endblock %}
+
+{% block content%}
+<h1>Главная Страница</h1>
+<p>
+    <a href="{% url 'about' %}">О нас</a>
+</p>
+{% endblock %}

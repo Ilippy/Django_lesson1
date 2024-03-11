@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title%} {{ title }} {% endblock %}
+
+{% block content%}
+<h1>Все посты {{ author.name|title }}</h1>
+{% for post in posts %}
+{% if post.is_published %}
+<p><a href="{% url 'post' post.id %}">{{ post.title|capfirst }}</a></p>
+{% endif %}
+{% endfor %}
+{% endblock %}

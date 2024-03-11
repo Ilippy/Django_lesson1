@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title%} {{ post.title|capfirst }} {% endblock %}
+
+{% block content%}
+<h1>{{ author.name|title }}</h1>
+<p>{{ post.content }}</p>
+<p>Дата публикации: {{ post.date }}</p>
+<p>Количество просмотров: {{ post.views }}</p>
+
+{% endblock %}

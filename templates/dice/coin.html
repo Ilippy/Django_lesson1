@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title%} {{ title }} {% endblock %}
+
+{% block content%}
+<h1>Бросок монеты</h1>
+<h2>Монетка упала стороной {{ current_flip }}</h2>
+
+<h3>Последние {{last_results|length}} бросков</h3>
+<ul>
+    {% for side in last_results %}
+    <li>{{ side|safe }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
