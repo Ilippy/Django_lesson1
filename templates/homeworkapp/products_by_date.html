@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title%} {{ title }} {% endblock %}
+
+{% block content%}
+<h1>Все заказы на продукты за последние {{ days }} дней</h1>
+<table>
+    <tr>
+        <th>Продукт</th>
+        <th>Количество</th>
+    </tr>
+    {% for product in products %}
+    <tr>
+        <td>{{ product.name }}</td>
+        <td>{{ product.count }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

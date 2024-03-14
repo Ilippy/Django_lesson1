@@ -40,11 +40,11 @@ class User(models.Model):
         message="Phone number must be entered in the format: '+9999999'. Up to 15 digits allowed."
     )
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
-    address = models.CharField(max_length=200)
+    address = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"имя: {self.name}, почта: {self.email}, телефон: {self.phone_number}, адрес: {self.address}"
+        return f"{self.name}"
 
 
 class Product(models.Model):
@@ -55,12 +55,12 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Product name: {self.name}, price: {self.price}, description: {self.description}"
+        return f"{self.name} - {self.price}"
 
 
 class Order(models.Model):
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product, through='OrderProduct')
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
+    products = models.ManyToManyField(Product, through='OrderProduct', related_name='orders')
     total_price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -70,6 +70,9 @@ class Order(models.Model):
         ).aggregate(result=Sum('sub_total'))
         self.total_price = round(query['result'], 2)
         super(Order, self).save()
+
+    def __str__(self):
+        return f"{self.created_at} - {self.total_price}"
 
 
 class OrderProduct(models.Model):

@@ -49,7 +49,10 @@ class Command(BaseCommand):
 
         for user in users:
             for _ in range(self.ORDERS_PER_PERSON):
-                order = Order(customer=user)
+                order = Order(
+                    customer=user,
+                    created_at=fake.date_time_between('-1y'),
+                )
                 order.save()
                 products_copy = products.copy()
                 for _ in range(self.PRODUCTS_PER_ORDER):
@@ -58,7 +61,7 @@ class Command(BaseCommand):
                     OrderProduct(
                         order=order,
                         product=random_product,
-                        order_amount=randint(1, self.MAX_PRODUCTS_IN_ORDER)
+                        order_amount=randint(1, self.MAX_PRODUCTS_IN_ORDER),
                     ).save()
                 order.save()
         self.stdout.write(
