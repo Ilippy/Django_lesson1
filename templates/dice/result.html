@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title%} {{ title }} {% endblock %}
+
+{% block content%}
+<h1>{{title}}</h1>
+
+
+{% for res in results %}
+    <p>Результат равен {{res}}</p>
+{% endfor %}
+
+
+<a href="{% url 'about' %}">О нас</a>
+</p>
+{% endblock %}

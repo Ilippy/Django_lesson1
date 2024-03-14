@@ -1,12 +1,23 @@
 {% extends 'base.html' %}
+{% load my_filters %}
 
 {% block title%} {{ title }} {% endblock %}
 
 {% block content%}
+{% for i in message|split %}
+<p>{{ i }}</p>
+{% endfor %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_div }}
+    <input type="submit" value="Отправить">
+</form>
+
 <h1>Все посты {{ author.name|title }}</h1>
 {% for post in posts %}
-{% if post.is_published %}
-<p><a href="{% url 'post' post.id %}">{{ post.title|capfirst }}</a></p>
-{% endif %}
+    {% if post.is_published %}
+        <p><a href="{% url 'post' post.slug %}" style="text-decoration: none;">{{ post.title|capfirst }}</a></p>
+    {% endif %}
 {% endfor %}
+
 {% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -12,7 +13,10 @@ class Author(models.Model):
 
     @property
     def full_name(self):
-        return f"{self.firstname, self.lastname}"
+        return f"{self.firstname}, {self.lastname}"
+
+    def __str__(self):
+        return self.full_name
 
 
 class Post(models.Model):
@@ -22,3 +26,11 @@ class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     is_published = models.BooleanField()
     views = models.IntegerField(default=0)
+    slug = models.SlugField(null=False, db_index=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title, allow_unicode=True)
+        super().save()
+
+    def __str__(self):
+        return self.title
