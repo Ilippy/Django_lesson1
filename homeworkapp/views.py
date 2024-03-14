@@ -20,11 +20,11 @@ from django.utils import timezone
 #
 # def v3(request):
 #     render(request, 'homeworkapp/hw.html')
-def get_orders_by_amount_of_days(request, days):
+def get_orders_by_amount_of_days(request, days, user_id):
     timezone.now()
     date = timezone.now() - timezone.timedelta(days=days)
     result = OrderProduct.objects.prefetch_related('order', 'product').filter(
-        order__created_at__gt=date  # , order__customer=user_id
+        order__created_at__gt=date, order__customer=user_id
     ).values(
         name=F('product__name')
     ).annotate(
