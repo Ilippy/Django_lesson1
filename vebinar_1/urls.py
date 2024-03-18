@@ -21,7 +21,8 @@ from django.urls.converters import register_converter
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),
-    path('', include('myapp.urls')),
+    path('myapp', include('myapp.urls')),
     path('dice/', include('dice.urls')),
     path('hw/', include('homeworkapp.urls')),
+    path('users/', include('users.urls')),
 ]

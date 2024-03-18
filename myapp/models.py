@@ -1,9 +1,16 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
+# from django.contrib.auth.models import AbstractUser
 
 
-# Create your models here.
+# class User(AbstractUser):
+#     first_name = models.CharField(max_length=40)
+#     last_name = models.CharField(max_length=60)
+#     email = models.EmailField()
+#     age = models.IntegerField()
+
+
 class Author(models.Model):
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
