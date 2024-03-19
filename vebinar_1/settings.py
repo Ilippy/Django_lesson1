@@ -128,13 +128,19 @@ AUTH_USER_MODEL = 'users.User'
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/my_gallery/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOG_FILE_PATH = Path.cwd() / 'log'
+LOG_FILE_PATH = BASE_DIR / 'log'
 LOG_FILE_PATH.mkdir(exist_ok=True)
 LOGGING = {
     'version': 1,

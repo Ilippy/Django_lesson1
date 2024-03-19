@@ -1,7 +1,10 @@
 from django.db.models import F, Sum
 from django.shortcuts import render
-from .models import OrderProduct
+from .models import OrderProduct, Product
 from django.utils import timezone
+from django.views.generic.edit import CreateView
+from .forms import ProductForm
+# from django.views.generic import ListView, DetailView
 
 
 # Homework 1
@@ -20,8 +23,9 @@ from django.utils import timezone
 #
 # def v3(request):
 #     render(request, 'homeworkapp/hw.html')
+
+# Homework3
 def get_orders_by_amount_of_days(request, days, user_id):
-    timezone.now()
     date = timezone.now() - timezone.timedelta(days=days)
     result = OrderProduct.objects.prefetch_related('order', 'product').filter(
         order__created_at__gt=date, order__customer=user_id
@@ -36,3 +40,15 @@ def get_orders_by_amount_of_days(request, days, user_id):
     }
 
     return render(request, 'homeworkapp/products_by_date.html', context)
+
+
+# Homework 4
+class ProductsListCreateView(CreateView):
+    model = Product
+    template_name = 'homeworkapp/products.html'
+    form_class = ProductForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['products'] = self.model.objects.all()
+        return context

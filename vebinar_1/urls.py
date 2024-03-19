@@ -16,13 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.urls.converters import register_converter
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("__debug__/", include("debug_toolbar.urls")),
-    path('myapp', include('myapp.urls')),
-    path('dice/', include('dice.urls')),
-    path('hw/', include('homeworkapp.urls')),
-    path('users/', include('users.urls')),
-]
+                  path('admin/', admin.site.urls),
+                  path("__debug__/", include("debug_toolbar.urls")),
+                  path('myapp', include('myapp.urls')),
+                  path('dice/', include('dice.urls')),
+                  path('hw/', include('homeworkapp.urls')),
+                  path('users/', include('users.urls')),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

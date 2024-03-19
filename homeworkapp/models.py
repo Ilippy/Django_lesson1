@@ -1,6 +1,7 @@
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import Sum, F
+from django.urls import reverse
 
 
 # from phonenumber_field.modelfields import PhoneNumberField
@@ -53,9 +54,13 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     amount = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='products', null=True, blank=True)
 
     def __str__(self):
         return f"{self.name} - {self.price}"
+
+    def get_absolute_url(self):
+        return reverse('products')
 
 
 class Order(models.Model):
@@ -65,10 +70,11 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        query = OrderProduct.objects.filter(order=self).annotate(
-            sub_total=F('order_amount') * F('product__price')
-        ).aggregate(result=Sum('sub_total'))
-        self.total_price = round(query['result'], 2)
+        if not self._state.adding:
+            query = OrderProduct.objects.filter(order=self).annotate(
+                sub_total=F('order_amount') * F('product__price')
+            ).aggregate(result=Sum('sub_total'))
+            self.total_price = round(query['result'], 2)
         super(Order, self).save()
 
     def __str__(self):

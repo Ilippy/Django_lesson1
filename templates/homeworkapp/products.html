@@ -1,0 +1,37 @@
+{% extends 'homeworkapp/base.html' %}
+{% load static %}
+{% block title%} {{ title }} {% endblock %}
+
+{% block content%}
+<h2 class="text-center">Добавить продукт</h2>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_div }}
+    <input type="submit" value="Добавить" class="btn btn-secondary mt-1">
+</form>
+
+<h2 class="text-center">Все продукты</h2>
+<div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+    <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+        {% for product in products %}
+        <div class="card m-3" style="width: 18rem;">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="card-img-top" alt="product">
+            {% else %}
+            <img src="{% static 'img/default-product-image.png' %}" class="card-img-top" alt="product">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="card-text">
+                    Количество: {{ product.amount }}<br>
+                    Цена: {{ product.price }}
+                </p>
+                <a href="#" class="btn btn-secondary">Открыть</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
